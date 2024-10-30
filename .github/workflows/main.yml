@@ -27,7 +27,7 @@ jobs:
       run: sudo apt install aria2
 
     - name: 开始下载
-      run: aria2c -o x.mp4 'magnet:?xt=urn:btih:fc6f9eb62a30d9c525a9909b8a63d621144891e4&dn=%E7%AC%AC%E4%B8%80%E6%9C%83%E6%89%80%E6%96%B0%E7%89%87@SIS001@NKKVR-120-A'
+      run: aria2c -o x.mp4 'magnet:?xt=urn:btih:ebda81d31d2aea6d7e96f4971cffbda12378bd09&dn=FC2PPV-3716322-1'
 
       
     - name: Telegram File Uploader
