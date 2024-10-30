@@ -14,4 +14,5 @@ jobs:
   build:
     runs-on: [self-hosted, "${{ inputs.chosen-os }}"]
     steps:
+    - name: "Optimize Disk Space"
     - run: echo Hello world!
