@@ -28,6 +28,9 @@ jobs:
 
     - name: 开始下载
       run: aria2c 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+
+    - name: Check if files exist
+      run: ls /home/runner/work/i/i/
       
     - name: Telegram File Uploader
       uses: xz-dev/TelegramFileUploader@v1.1.1        
