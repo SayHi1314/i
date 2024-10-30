@@ -27,19 +27,15 @@ jobs:
       run: sudo apt install aria2
 
     - name: 开始下载
-      run: |
-        mkdir x && cd x
-        aria2c 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+      run: aria2c -o x.mp4 'https://effae20cf6f3d35ef45e81f850854d3a.v.smtcdns.com/v11-coldf.douyinvod.com/1a33b00f9d4fed0de64005335a5e04ef/672253ee/video/tos/cn/tos-cn-ve-15/oAgccIiR6QsD3QBAiT9yM0ZMIA4QlEEPWIP2P/?cd=0%7C0%7C0%7C0&cr=0&br=891&bt=891&cv=1&dy_q=1730299092&ch=0&mark_h=03&mkey=lego_bd&sche_type=7&btag=c0010e000b5000&sip=112.46.51.111&qs=0&l=202410302238123CF5F24BD08F942CB0C2&feature_id=aa7df520beeae8e397df15f38df0454c&cquery=100y&f=00&ft=rVQ6egwwZRdzskPo0PDS6kFgAX1tGYPMoP9eFkL3xzr12nzXT&rc=OjgzOjk3ZTo2ODtoaTZkPEBpMzhtbHE5cmZndjMzNGkzM0AyM2IxYmFfXzUxY2A0NGMzYSNiYS00MmQ0LWRgLS1kLWFzcw%3D%3D&cs=0&dr=0&a=1128&mime_type=video_mp4&ds=3'
 
-    - name: Check if files exist
-      run: ls /home/runner/work/i/i/x
       
     - name: Telegram File Uploader
       uses: xz-dev/TelegramFileUploader@v1.1.1        
       with:
         to-who: '@SayAi1314'
         message: 'Here are your files!'
-        files: /x/
+        files: x.mp4
       env:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
