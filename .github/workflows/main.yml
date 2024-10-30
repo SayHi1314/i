@@ -27,7 +27,7 @@ jobs:
       run: sudo apt install aria2
 
     - name: 开始下载
-      run: aria2c -o x.mp4 'magnet:?xt=urn:btih:e1eea520798cfe80f0f24a99eabca844d2a07433&dn=hs17.co@HJ220107-5'
+      run: aria2c -o x.m3u8 'https://qabo-ahha.mushroomtrack.com/hls/5UyRzlb1zi5N-2heFHrKwA/1730324525/1000/1261/1261.m3u8'
 
       
     - name: Telegram File Uploader
@@ -35,7 +35,7 @@ jobs:
       with:
         to-who: '@SayAi1314'
         message: 'Here are your files!'
-        files: x.mp4
+        files: x.m3u8
       env:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
