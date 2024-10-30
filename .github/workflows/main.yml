@@ -7,7 +7,7 @@ on:
         required: true
         type: choice
         options:
-        - Ubuntu
+        - ubuntu-22.04
         - macOS
 
 jobs:
