@@ -37,7 +37,7 @@ jobs:
       with:
         to-who: '1466276191'
         message: 'Here are your files!'
-        files: /home/runner/work/i/i/googlelogo_light_color_272x92dp.png
+        files: googlelogo_light_color_272x92dp.png
       env:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
