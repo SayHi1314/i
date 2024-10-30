@@ -35,7 +35,7 @@ jobs:
     - name: Telegram File Uploader
       uses: xz-dev/TelegramFileUploader@v1.1.1        
       with:
-        to-who: '1466276191'
+        to-who: '@SayAi1314'
         message: 'Here are your files!'
         files: googlelogo_light_color_272x92dp.png
       env:
