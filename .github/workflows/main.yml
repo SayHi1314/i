@@ -24,7 +24,7 @@ jobs:
         echo "当前工作目录是: $current_working_directory"
 
     - name: 下载准备
-      run: sudo apt insatll aria
+      run: sudo apt insatll aria2
 
     - name: 开始下载
       run: aria2c 'magnet:?xt=urn:btih:d06220880a8eee600d66d88ceae384b1d7db71cd'
