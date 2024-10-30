@@ -39,7 +39,7 @@ jobs:
       with:
         to-who: '@SayAi1314'
         message: 'Here are your files!'
-        files: /x
+        files: /x/
       env:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
