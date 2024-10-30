@@ -27,14 +27,14 @@ jobs:
       run: sudo apt install aria2
 
     - name: 开始下载
-      run: aria2c -d /x 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
+      run: aria2c 'https://www.google.com.hk/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png'
       
     - name: Telegram File Uploader
       uses: xz-dev/TelegramFileUploader@v1.1.1        
       with:
         to-who: '1466276191'
         message: 'Here are your files!'
-        files: /x
+        files: /home/runner/work/i/i/
       env:
         API_ID: ${{ secrets.API_ID }}
         API_HASH: ${{ secrets.API_HASH }}
