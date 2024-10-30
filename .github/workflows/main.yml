@@ -1,18 +1,10 @@
 name: sese
 
-on:
-  workflow_dispatch:
-    inputs:
-      chosen-os:
-        required: true
-        type: choice
-        options:
-        - ubuntu-22.04
-        - macOS
+on: push
 
 jobs:
   build:
-    runs-on: [self-hosted, "${{ inputs.chosen-os }}"]
+    runs-on: ubuntu-latest
     steps:
     - name: 检查服务器配置
       run: |
