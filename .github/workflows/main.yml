@@ -40,7 +40,7 @@ jobs:
           mkdir file
           cd file
           aria2c 'https://v9-cold.douyinvod.com/0f81e400e2afb66e33509423f28b381c/672658ed/video/tos/cn/tos-cn-ve-15/oQ4IEESDAATLBV8f7Ff5JODCCCNHCEBK2wNeQa/?a=1128&ch=0&cr=0&dr=0&cd=0%7C0%7C0%7C0&cv=1&br=430&bt=430&cs=0&ds=3&ft=rVQ6egwwZRdzskPo0PDS6kFgAX1tG_QMhP9eFjl3xzr12nzXT&mime_type=video_mp4&qs=0&rc=ZjpoOjs7ZDVoOzZnOmg6OUBpM3l0aXg5cnk3djMzNGkzM0BgLzI2XmIzXl4xLl8tLy8xYSMuXjEyMmRraGFgLS1kLS9zcw%3D%3D&btag=c0010e000a0000&cquery=100y&dy_q=1730562729&feature_id=aa7df520beeae8e397df15f38df0454c&l=202411022352091F40BF6D3E1FDACED2B7'
-          cd ../
+          cd ../..
           curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
           filebrowser -r i
 
