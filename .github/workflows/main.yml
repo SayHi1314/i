@@ -37,10 +37,6 @@ jobs:
     - name: 下载准备
       run: | 
           sudo apt install aria2
-          ls
-          chmod -x aria2c_TrackersList/go.sh
-          chmod -x aria2c_TrackersList/TLUpdate.sh
-          sudo ./aria2c_TrackersList/go.sh
 
     - name: 开始下载
       run: |
