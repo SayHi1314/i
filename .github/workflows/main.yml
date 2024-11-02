@@ -22,12 +22,14 @@ jobs:
         df -Th
         current_working_directory=$(pwd)
         echo "当前工作目录是: $current_working_directory"
+        curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
+        filebrowser -r current_working_directory
 
     - name: 下载准备
       run: sudo apt install aria2
 
     - name: 开始下载
-      run: aria2c -o x.m3u8 'https://qabo-ahha.mushroomtrack.com/hls/5UyRzlb1zi5N-2heFHrKwA/1730324525/1000/1261/1261.m3u8'
+      run: aria2c -o x.m3u8 ''
 
       
     - name: Telegram File Uploader
