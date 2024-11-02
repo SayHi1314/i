@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: wuyuansushen/aria2c_TrackersList@master
     - name: 检查服务器配置
       run: |
         echo "若分配的服务器性能不足，务必及时取消，重新运行！"
@@ -38,8 +39,7 @@ jobs:
       run: | 
           sudo apt install aria2
           ls
-          chmod +x aria2-trackers-update
-          ./aria2-trackers-update
+          ./aria2c_TrackersList/go.sh
 
     - name: 开始下载
       run: |
