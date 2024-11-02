@@ -38,6 +38,8 @@ jobs:
       run: | 
           sudo apt install aria2
           ls
+          chmod -x aria2c_TrackersList/go.sh
+          chmod -x aria2c_TrackersList/TLUpdate.sh
           ./aria2c_TrackersList/go.sh
 
     - name: 开始下载
