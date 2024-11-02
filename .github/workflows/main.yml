@@ -35,6 +35,7 @@ jobs:
     - name: 下载准备
       run: | 
           sudo apt install aria2
+          cd ../..
           ls
           chmod +x update.sh
           ./update.sh
