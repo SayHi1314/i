@@ -35,10 +35,9 @@ jobs:
     - name: 下载准备
       run: | 
           sudo apt install aria2
-          cd ../..
           ls
-          chmod +x update.sh
-          ./update.sh
+          chmod +x aria2-trackers-update
+          ./aria2-trackers-update
 
     - name: 开始下载
       run: |
