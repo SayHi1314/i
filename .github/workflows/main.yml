@@ -33,7 +33,10 @@ jobs:
 
 
     - name: 下载准备
-      run: sudo apt install aria2
+      run: | 
+          sudo apt install aria2
+          chmod +x update.sh
+          ./update.sh
 
     - name: 开始下载
       run: |
