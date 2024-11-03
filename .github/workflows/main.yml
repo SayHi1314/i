@@ -39,7 +39,7 @@ jobs:
         nohup ./ngrok http http://localhost:8080 &
         cd ../..
         curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-        nohup filebrowser -r i
+        nohup filebrowser -r i > filebrowser.log 2>&1 &
 
 
     - name: 下载准备
