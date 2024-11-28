@@ -1,64 +1,16 @@
 name: sese0
 
-on: push
+on:  workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-
-    
-    - name: Setup Python
-      uses: actions/setup-python@v5.3.0
-            
-    - name: 检查服务器配置
+             
+    - name: 推送
       run: |
-        echo "若分配的服务器性能不足，务必及时取消，重新运行！"
-        echo -e "------------------------------- CPU信息 -------------------------------\n"
-        echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
-        echo -e "CPU核心及版本信息: $(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
-        echo -e "------------------------------- 内存信息 -------------------------------\n"
-        echo "已安装内存详细信息: "
-        sudo lshw -short -C memory | grep GiB
-        echo -e "\n"
-        echo -e "------------------------------- 磁盘信息 -------------------------------\n"
-        echo -e "磁盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
-        echo "------------------------------- 磁盘详情 -------------------------------\n"
-        df -Th
-        current_working_directory=$(pwd)
-        echo "当前工作目录是: $current_working_directory"
         ls
+        sudo chomd +x aria2.sh
+        ./aria2.sh
 
-        
-    - name: debugger
-      run: |
-        wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz
-        tar zxvf ngrok-v3-stable-linux-amd64.tgz
-        ./ngrok config add-authtoken 2TmbyNIZE2s92Rf0UMAm6PAiz4v_46U6yh9UUw5mULpfxuQZ8
-        nohup ./ngrok http http://localhost:8080 &
-
-
-    - name: 下载准备
-      run: | 
-          sudo apt install aria2
-          wget https://github.com/P3TERX/aria2.conf/raw/master/dht.dat
-          pip install torrentp
-
-    - name: 开始下载
-      run: |
-          aria2c --seed-time=0 --dht-file-path=dht.dat 'magnet:?xt=urn:btih:d06220880a8eee600d66d88ceae384b1d7db71cd&dn=%2B%2B%2B%20FC2-PPV-4556695%20%E3%80%90%E5%88%9D%E3%83%A2%E3%83%8E%EF%BC%8F%E7%AC%AC%E4%BA%8C%E7%AB%A0%E3%80%91%E3%83%9B%E3%83%86%E3%83%AB%E3%81%AE%E3%82%AB%E3%83%BC%E3%83%86%E3%83%B3%E3%82%92%E9%96%8B%E3%81%91%E6%94%BE%E3%81%A1%E3%80%81%E7%8F%BE%E3%81%88.%2F%E3%81%8DJ%E2%97%8F%E3%81%AE%E7%BE%8E%E8%A3%B8%E4%BD%93%E3%82%92%E8%A1%97%E8%A1%8C%E3%81%8F%E4%BA%BA%E3%81%AB%E8%A6%8B%E3%81%9B%E3%81%A4%E3%81%91%E3%80%81%E4%B8%AD%E5%87%BA%E3%81%97%E3%82%A8%E3%83%83%E3%83%81%E3%80%82&tr=http%3A%2F%2Fsukebei.tracker.wf%3A8888%2Fannounce&tr=udp%3A%2F%2Fopen.stealth.si%3A80%2Fannounce&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Fexodus.desync.com%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce'
-          cd ../..
-          curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh | bash
-          filebrowser -r i 
-      
-    - name: Telegram File Uploader
-      uses: xz-dev/TelegramFileUploader@v1.1.1        
-      with:
-        to-who: '@SayAi1314'
-        message: 'Here are your files!'
-        files: x.m3u8
-      env:
-        API_ID: ${{ secrets.API_ID }}
-        API_HASH: ${{ secrets.API_HASH }}
-        BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
