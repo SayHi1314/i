@@ -10,7 +10,6 @@ jobs:
              
     - name: 推送
       run: |
-          ping 246800.v6.rocks
           ls
           sudo chmod +x aria2.sh
           $GITHUB_WORKSPACE/aria2.sh
