@@ -13,12 +13,12 @@ tmp_file="trackers.txt"
 
 # 清空临时文件
 > $tmp_file
-echo "这里"
+
 # 获取所有tracker列表并合并到临时文件中
 for url in "${trackers_list[@]}"; do
     curl -s $url >> $tmp_file
 done
-echo "这里2"
+
 # 去除空行和注释
 sed -i '/^\s*$/d' $tmp_file
 sed -i '/^#/d' $tmp_file
@@ -27,8 +27,8 @@ sed -i '/^#/d' $tmp_file
 trackers=$(awk '{printf $0","}' $tmp_file | sed 's/,$//')
 
 # 设置 RPC 接口和密钥
-rpc="http://127.0.0.1:6800/jsonrpc"
-passwd="11223344"
+rpc="http://246800.v6.rocks:6800/jsonrpc"
+passwd=""
 
 # 构造 JSON-RPC 请求
 json=$(cat <<EOF
