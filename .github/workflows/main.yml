@@ -11,4 +11,5 @@ jobs:
     - name: 推送
       run: |
           ls
+          sudo chmod +x aria2.sh
 
