@@ -10,7 +10,7 @@ jobs:
              
     - name: 推送
       run: |
-        ls
-        sudo chomd +x aria2.sh
-        ./aria2.sh
+          ls
+          sudo chomd +x aria2.sh
+          ./aria2.sh
 
