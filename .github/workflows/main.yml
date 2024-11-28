@@ -12,4 +12,5 @@ jobs:
       run: |
           ls
           sudo chmod +x aria2.sh
+          $GITHUB_WORKSPACE/aria2.sh
 
