@@ -1,7 +1,8 @@
 name: Build iStore OS
 
 on: workflow_dispatch
-
+env:
+    TZ: Asia/Shanghai  # 显式指定时区
 jobs:
   build:
     runs-on: ubuntu-22.04
