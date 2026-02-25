@@ -74,7 +74,7 @@ jobs:
       uses: actions/upload-artifact@main
       with:
         name: armbian
-        path: output/
+        path: build/output/images/
 
 
 
