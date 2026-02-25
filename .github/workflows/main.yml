@@ -1,7 +1,6 @@
 name: Build iStore OS
 
-on:
-  repository_dispatch:
+on: workflow_dispatch
 
 jobs:
   build:
