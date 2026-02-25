@@ -1,32 +1,38 @@
-name: 'ssh-pipeline'
-description: 'Pipeline: ssh'
-author: 'Scott Ng'
-inputs:
-  host:
-    description: 'ssh remote host'
-    required: true
-  port:
-    description: 'ssh remote port'
-    default: 22
-  user:
-    description: 'ssh remote user'
-    required: true
-  key:
-    description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
-    required: false
-  pass:
-    description: 'ssh remote password'
-    required: false
-  connect_timeout:
-    description: 'connection timeout to remote host'
-    default: "30s"
-    required: false
-  script:
-    description: 'execute commands on ssh'
-    required: false
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-branding:
-  icon: 'terminal'
-  color: 'gray-dark'
+name: Deploy to Server
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run SSH/SCP Pipeline
+        uses: YourGitHubUsername/your-action-repo-name@v2 # Use your action's repo and version
+        with:
+          # --- Connection Details (from Secrets) ---
+          host: ${{ secrets.SSH_HOST }}
+          user: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+
+          # --- Pipeline Commands ---
+          first_ssh: |
+            echo "Starting deployment..."
+            echo "Connected from a GitHub Actions runner!"
+
+          scp: |
+            # Copy build artifacts or other files
+            # Format: 'local/path => remote/path'
+            README.md => /tmp/
+
+          last_ssh: |
+            echo "File transfer complete."
+            echo "Verifying file on remote server:"
+            ls -l /tmp/README.md
