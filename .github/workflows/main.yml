@@ -1,16 +1,34 @@
-name: sese0
+# name: sese0
 
-on:  workflow_dispatch
+# on:  workflow_dispatch
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - uses: actions/checkout@v4
+             
+#     - name: 推送
+#       run: |
+#           ls
+#           sudo chmod +x aria2.sh
+#           $GITHUB_WORKSPACE/aria2.sh
+name: Command via SSH
+
+on: push
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-             
-    - name: 推送
-      run: |
-          ls
-          sudo chmod +x aria2.sh
-          $GITHUB_WORKSPACE/aria2.sh
 
+    steps:
+      - name: ls -a via OPEN SSH Private Key
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: ls -a
+          host: ${{ secrets.HOST }}
+          username: garygrossgarten
+          password: ${{ secrets.PASSPHRASE }}
+          privateKey: ${{ secrets.PRIVATE_KEY}}
+        env:
+          CI: true
