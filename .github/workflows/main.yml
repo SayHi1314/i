@@ -1,35 +1,32 @@
-# name: sese0
-
-# on:  workflow_dispatch
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@v4
-             
-#     - name: 推送
-#       run: |
-#           ls
-#           sudo chmod +x aria2.sh
-#           $GITHUB_WORKSPACE/aria2.sh
-uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
-with:
-# ssh remote host
-  host: 
-# ssh remote port
-  port: # optional, default is 22
-  # ssh remote user
-  user: 
-  # content of ssh private key. ex raw content of ~/.ssh/id_rsa
-  key: # optional
-  # ssh remote password
-  pass: # optional
-  # connection timeout to remote host
-  connect_timeout: # optional, default is 3s
-  # execute pre-commands before scp
- first_ssh: # optional
-  # scp from local to remote
-  scp: # optional
-  # execute post-commands after scp
-  last_ssh: # optional
+name: 'ssh-pipeline'
+description: 'Pipeline: ssh'
+author: 'Scott Ng'
+inputs:
+  host:
+    description: 'ssh remote host'
+    required: true
+  port:
+    description: 'ssh remote port'
+    default: 22
+  user:
+    description: 'ssh remote user'
+    required: true
+  key:
+    description: 'content of ssh private key. ex raw content of ~/.ssh/id_rsa'
+    required: false
+  pass:
+    description: 'ssh remote password'
+    required: false
+  connect_timeout:
+    description: 'connection timeout to remote host'
+    default: "30s"
+    required: false
+  script:
+    description: 'execute commands on ssh'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+branding:
+  icon: 'terminal'
+  color: 'gray-dark'
