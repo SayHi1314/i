@@ -13,22 +13,23 @@
 #           ls
 #           sudo chmod +x aria2.sh
 #           $GITHUB_WORKSPACE/aria2.sh
-name: Command via SSH
-
-on: push
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: ls -a via OPEN SSH Private Key
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: ls -a
-          host: ${{ secrets.HOST }}
-          username: garygrossgarten
-          password: ${{ secrets.PASSPHRASE }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
-        env:
-          CI: true
+uses: cross-the-world/ssh-scp-ssh-pipelines@v1.1.4
+with:
+# ssh remote host
+  host: 
+# ssh remote port
+  port: # optional, default is 22
+  # ssh remote user
+  user: 
+  # content of ssh private key. ex raw content of ~/.ssh/id_rsa
+  key: # optional
+  # ssh remote password
+  pass: # optional
+  # connection timeout to remote host
+  connect_timeout: # optional, default is 3s
+  # execute pre-commands before scp
+ first_ssh: # optional
+  # scp from local to remote
+  scp: # optional
+  # execute post-commands after scp
+  last_ssh: # optional
