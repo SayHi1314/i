@@ -1,38 +1,84 @@
-name: Deploy to Server
+name: Build iStore OS
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  repository_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-22.04
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: "Optimize Disk Space"
+      uses: "hugoalh/disk-space-optimizer-ghaction@v0.8.1"
+      with:
+        operate_sudo: "True"
+        general_include: ".+"
+        general_exclude: |-
+          ^GCC$
+          ^G\+\+$
+          Clang
+          LLVM
+        docker_include: ".+"
+        docker_prune: "True"
+        docker_clean: "True"
+        apt_prune: "True"
+        apt_clean: "True"
+        homebrew_prune: "True"
+        homebrew_clean: "True"
+        npm_prune: "True"
+        npm_clean: "True"
+        os_swap: "True"
 
-      - name: Run SSH/SCP Pipeline
-        uses: YourGitHubUsername/your-action-repo-name@v2 # Use your action's repo and version
-        with:
-          # --- Connection Details (from Secrets) ---
-          host: ${{ secrets.SSH_HOST }}
-          user: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+    - name: Freeing up disk space
+      uses: easimon/maximize-build-space@master
+      with: 
+        root-reserve-mb: 2048
+        swap-size-mb: 1
+        remove-dotnet: 'true'
+        remove-android: 'true'
+        remove-haskell: 'true'
+        remove-codeql: 'true'
+        remove-docker-images: 'true'
 
-          # --- Pipeline Commands ---
-          first_ssh: |
-            echo "Starting deployment..."
-            echo "Connected from a GitHub Actions runner!"
+    - name: 准备完成了
+      uses: actions/checkout@main
+   
+    - name: 检查服务器配置
+      run: |
+        echo "若分配的服务器性能不足，务必及时取消，重新运行！"
+        echo -e "------------------------------- CPU信息 -------------------------------\n"
+        echo "CPU物理数量:$(cat /proc/cpuinfo| grep "physical id"| sort| uniq| wc -l)"
+        echo -e "CPU核心及版本信息: $(cat /proc/cpuinfo | grep name | cut -f2 -d: | uniq -c) \n"
+        echo -e "------------------------------- 内存信息 -------------------------------\n"
+        echo "已安装内存详细信息: "
+        sudo lshw -short -C memory | grep GiB
+        echo -e "\n"
+        echo -e "------------------------------- 磁盘信息 -------------------------------\n"
+        echo -e "磁盘数量: $(ls /dev/sd* | grep -v [1-9] | wc -l) \n"
+        echo "------------------------------- 磁盘详情 -------------------------------\n"
+        df -Th
+    - name: bianyi
+      run: |
+        #echo "------------------------------- 清理Docker镜像和软件 -------------------------------"
+        #docker rmi `docker images -q`
+        #docker image prune -a -f
+        #sudo -E apt-get -y purge azure-cli ghc* zulu* hhvm llvm* firefox google* dotnet* powershell openjdk* adoptopenjdk* mysql* php* mongodb* dotnet* moby* snapd* android* || true
+        #sudo -E apt-get -qq autoremove --purge
+        #sudo -E apt-get -qq clean
+        echo "------------------------------- 设置工作目录及时区 -------------------------------"
+        sudo timedatectl set-timezone "$TZ"      
+        echo "------------------------------- 开始编译 -------------------------------"
+        git clone https://github.com/armbian/build.git
+        cd build
+        sudo chomd +x compile.sh
+        sudo ./compile.sh BOARD=mangopi-m28k BRANCH=vendor BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_APPGROUPS_SELECTED='browsers chat desktop_tools editors email internet multimedia office programming remote_desktop' DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base KERNEL_CONFIGURE=no RELEASE=noble
 
-          scp: |
-            # Copy build artifacts or other files
-            # Format: 'local/path => remote/path'
-            README.md => /tmp/
+    - name: 上传固件目录
+      uses: actions/upload-artifact@main
+      with:
+        name: armbian
+        path: output/
 
-          last_ssh: |
-            echo "File transfer complete."
-            echo "Verifying file on remote server:"
-            ls -l /tmp/README.md
+
+
+
+
