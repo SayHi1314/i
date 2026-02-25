@@ -3,6 +3,7 @@ name: Build iStore OS
 on: workflow_dispatch
 env:
     TZ: Asia/Shanghai  # 显式指定时区
+    GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-22.04
@@ -75,6 +76,11 @@ jobs:
       with:
         name: armbian
         path: build/output/images/
+    - name: 自动发布固件到 Releases
+      uses: softprops/action-gh-release@v1
+      with:
+        tag_name: 123
+        files: build/output/images/
 
 
 
