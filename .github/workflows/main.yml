@@ -72,15 +72,11 @@ jobs:
         sudo ./compile.sh BOARD=mangopi-m28k BRANCH=vendor BUILD_DESKTOP=no BUILD_MINIMAL=no KERNEL_CONFIGURE=no RELEASE=noble
 
     - name: 上传固件目录
-      uses: actions/upload-artifact@main
+      uses: actions/upload-artifact@v6.0.0
       with:
         name: armbian
         path: build/output/images/
-    - name: 自动发布固件到 Releases
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: ${{ github.ref_name }}
-        files: build/output/images/*
+
 
 
 
