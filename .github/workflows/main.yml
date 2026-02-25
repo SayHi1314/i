@@ -69,7 +69,7 @@ jobs:
         echo "------------------------------- 开始编译 -------------------------------"
         git clone https://github.com/armbian/build.git
         cd build
-        sudo chomd +x compile.sh
+        sudo chmod +x compile.sh
         sudo ./compile.sh BOARD=mangopi-m28k BRANCH=vendor BUILD_DESKTOP=yes BUILD_MINIMAL=no DESKTOP_APPGROUPS_SELECTED='browsers chat desktop_tools editors email internet multimedia office programming remote_desktop' DESKTOP_ENVIRONMENT=xfce DESKTOP_ENVIRONMENT_CONFIG_NAME=config_base KERNEL_CONFIGURE=no RELEASE=noble
 
     - name: 上传固件目录
