@@ -79,8 +79,8 @@ jobs:
     - name: 自动发布固件到 Releases
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: 123
-        files: build/output/images/
+        tag_name: ${{ github.ref_name }}
+        files: build/output/images/*
 
 
 
